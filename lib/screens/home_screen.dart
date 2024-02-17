@@ -1,6 +1,6 @@
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
-import 'package:rabka_movie/widgets/continue_watching.dart';
+import 'package:rabka_movie/widgets/home/continue_watching.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

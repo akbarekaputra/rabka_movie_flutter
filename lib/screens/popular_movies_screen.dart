@@ -62,9 +62,7 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => MovieDetailScreen(
-                                      movieId: popularMoviesData[firstIndex].id,
-                                      titleMovie:
-                                          popularMoviesData[firstIndex].title,
+                                      dataMovies: popularMoviesData[firstIndex],
                                     ),
                                   ),
                                 );
@@ -128,10 +126,8 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => MovieDetailScreen(
-                                      movieId:
-                                          popularMoviesData[secondIndex].id,
-                                      titleMovie:
-                                          popularMoviesData[secondIndex].title,
+                                      dataMovies:
+                                          popularMoviesData[secondIndex],
                                     ),
                                   ),
                                 );

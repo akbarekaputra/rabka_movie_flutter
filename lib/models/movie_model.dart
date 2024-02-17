@@ -65,3 +65,53 @@ class VideoMovies {
     };
   }
 }
+
+class GenresMovie {
+  final String genresName;
+
+  GenresMovie({
+    required this.genresName,
+  });
+
+  factory GenresMovie.fromMap(Map<String, dynamic> map) {
+    return GenresMovie(
+      genresName: map['name'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'genresName': genresName,
+    };
+  }
+}
+
+class MovieDetails {
+  final int id;
+  final String title;
+  final String overview;
+  final String release_date;
+  final List<GenresMovie> genres;
+
+  MovieDetails({
+    required this.id,
+    required this.title,
+    required this.overview,
+    required this.release_date,
+    required this.genres,
+  });
+
+  factory MovieDetails.fromJson(Map<String, dynamic> json) {
+    List<GenresMovie> genresList = (json['genres'] as List)
+        .map((genre) => GenresMovie.fromMap(genre))
+        .toList();
+
+    return MovieDetails(
+      id: json['id'],
+      title: json['original_title'],
+      overview: json['overview'],
+      release_date: json['release_date'],
+      genres: genresList,
+    );
+  }
+}
