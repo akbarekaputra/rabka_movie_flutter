@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/provider/idVidePlay_provider.dart';
 import 'package:rabka_movie/responsive/mobile_screen_layout.dart';
 import 'package:rabka_movie/responsive/responsive_layout.dart';
 import 'package:rabka_movie/responsive/web_screen_layout.dart';
@@ -17,7 +18,7 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyAk_-pGN5qz8jgPTsbiRZ81gnv1P-6GDSY",
+        apiKey: "AIzaSyAk_-pGN5qz8jgPTsbiRZ81gnv1P-6GDSY2",
         appId: "1:823653093142:web:dce206158cf31b53fc8a37",
         messagingSenderId: "823653093142",
         projectId: "rabka-movie-01",
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DrawerToggleProvider()),
+        ChangeNotifierProvider(create: (_) => IsVidPlayProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

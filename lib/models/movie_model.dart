@@ -90,14 +90,14 @@ class MovieDetails {
   final int id;
   final String title;
   final String overview;
-  final String release_date;
+  final String releaseDate;
   final List<GenresMovie> genres;
 
   MovieDetails({
     required this.id,
     required this.title,
     required this.overview,
-    required this.release_date,
+    required this.releaseDate,
     required this.genres,
   });
 
@@ -110,7 +110,7 @@ class MovieDetails {
       id: json['id'],
       title: json['original_title'],
       overview: json['overview'],
-      release_date: json['release_date'],
+      releaseDate: json['release_date'],
       genres: genresList,
     );
   }

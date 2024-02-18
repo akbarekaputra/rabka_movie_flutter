@@ -48,140 +48,146 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
                 itemCount: (popularMoviesData.length / 2).ceil(),
                 itemBuilder: (context, index) {
                   final int firstIndex = index * 2;
-                  final int secondIndex = index * 2 + 1;
+                  final int secondIndex =
+                      (index * 2 + 1 < popularMoviesData.length)
+                          ? index * 2 + 1
+                          : -1;
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
                       children: [
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MovieDetailScreen(
-                                      dataMovies: popularMoviesData[firstIndex],
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MovieDetailScreen(
+                                    dataMovies: popularMoviesData[firstIndex],
+                                    indexVideoMovie: 0,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/original/${popularMoviesData[firstIndex].posterPath}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: _toggleValue == true
+                                          ? Colors.white
+                                          : Colors.black,
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(3),
+                                        topRight: Radius.circular(3),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        for (int i = 0;
+                                            i <
+                                                popularMoviesData[firstIndex]
+                                                        .rate
+                                                        .toInt() /
+                                                    2;
+                                            i++)
+                                          const Icon(
+                                            Icons.star_rate,
+                                            color: primaryColor,
+                                            size: 12,
+                                          ),
+                                      ],
                                     ),
                                   ),
-                                );
-                              },
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.network(
-                                      "https://image.tmdb.org/t/p/original/${popularMoviesData[firstIndex].posterPath}",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: _toggleValue == true
-                                            ? Colors.white
-                                            : Colors.black,
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(3),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          for (int i = 0;
-                                              i <
-                                                  popularMoviesData[firstIndex]
-                                                          .rate
-                                                          .toInt() /
-                                                      2;
-                                              i++)
-                                            const Icon(
-                                              Icons.star_rate,
-                                              color: primaryColor,
-                                              size: 12,
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MovieDetailScreen(
-                                      dataMovies:
-                                          popularMoviesData[secondIndex],
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.network(
-                                      "https://image.tmdb.org/t/p/original/${popularMoviesData[secondIndex].posterPath}",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: _toggleValue == true
-                                            ? Colors.white
-                                            : Colors.black,
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(3),
+                        const SizedBox(width: 10),
+                        secondIndex != -1
+                            ? Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MovieDetailScreen(
+                                          dataMovies:
+                                              popularMoviesData[secondIndex],
+                                          indexVideoMovie: 0,
                                         ),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          for (int i = 0;
-                                              i <
-                                                  popularMoviesData[secondIndex]
-                                                          .rate
-                                                          .toInt() /
-                                                      2;
-                                              i++)
-                                            const Icon(
-                                              Icons.star_rate,
-                                              color: primaryColor,
-                                              size: 12,
-                                            ),
-                                        ],
+                                    );
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/original/${popularMoviesData[secondIndex].posterPath}",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 4,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: _toggleValue == true
+                                                ? Colors.white
+                                                : Colors.black,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              bottomLeft: Radius.circular(3),
+                                              topRight: Radius.circular(3),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              for (int i = 0;
+                                                  i <
+                                                      popularMoviesData[
+                                                                  secondIndex]
+                                                              .rate
+                                                              .toInt() /
+                                                          2;
+                                                  i++)
+                                                const Icon(
+                                                  Icons.star_rate,
+                                                  color: primaryColor,
+                                                  size: 12,
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Expanded(child: Container())
                       ],
                     ),
                   );

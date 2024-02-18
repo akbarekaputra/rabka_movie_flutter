@@ -1,6 +1,7 @@
 import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/screens/movie_detail_screen.dart';
 import 'package:rabka_movie/screens/popular_movies_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,17 @@ class _PopularMovieState extends State<PopularMovies> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MovieDetailScreen(
+                                        dataMovies: popularMoviesData[index],
+                                        indexVideoMovie: 0,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Image.network(
                                   imageUrl,
                                   width: 105,
