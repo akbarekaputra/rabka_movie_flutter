@@ -5,7 +5,7 @@ import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/screens/movie_detail_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
-import 'package:rabka_movie/widgets/second_top_nav.dart';
+import 'package:rabka_movie/widgets/second_top_nav_widget.dart';
 
 class PopularMoviesScreen extends StatefulWidget {
   const PopularMoviesScreen({super.key});
@@ -28,7 +28,7 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
     bool _toggleValue = Provider.of<DrawerToggleProvider>(context).toggleValue;
 
     return Scaffold(
-      appBar: const SecondTopNav(title: "Popular Movie"),
+      appBar: const SecondTopNavWidget(title: "Popular Movie"),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: FutureBuilder<List<Movie>>(

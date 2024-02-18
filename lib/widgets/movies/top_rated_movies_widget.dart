@@ -1,19 +1,20 @@
 import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/screens/movie_detail_screen.dart';
 import 'package:rabka_movie/screens/top_rated_movies_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TopRatedMovies extends StatefulWidget {
-  const TopRatedMovies({Key? key}) : super(key: key);
+class TopRatedMoviesWidget extends StatefulWidget {
+  const TopRatedMoviesWidget({Key? key}) : super(key: key);
 
   @override
-  State<TopRatedMovies> createState() => _TopRatedMoviestate();
+  State<TopRatedMoviesWidget> createState() => _TopRatedMoviesWidgettate();
 }
 
-class _TopRatedMoviestate extends State<TopRatedMovies> {
+class _TopRatedMoviesWidgettate extends State<TopRatedMoviesWidget> {
   late Future<List<Movie>> topRatedMovies;
 
   @override
@@ -97,7 +98,17 @@ class _TopRatedMoviestate extends State<TopRatedMovies> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MovieDetailScreen(
+                                        dataMovies: topRatedMoviesData[index],
+                                        indexVideoMovie: 0,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Image.network(
                                   imageUrl,
                                   width: 105,

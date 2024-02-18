@@ -1,25 +1,26 @@
 import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
-import 'package:rabka_movie/screens/upcoming_movies_screen.dart';
+import 'package:rabka_movie/screens/movie_detail_screen.dart';
+import 'package:rabka_movie/screens/popular_movies_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class UpcomingMovies extends StatefulWidget {
-  const UpcomingMovies({Key? key}) : super(key: key);
+class PopularMoviesWidget extends StatefulWidget {
+  const PopularMoviesWidget({Key? key}) : super(key: key);
 
   @override
-  State<UpcomingMovies> createState() => _UpcomingMovieState();
+  State<PopularMoviesWidget> createState() => _PopularMovieSWidgettate();
 }
 
-class _UpcomingMovieState extends State<UpcomingMovies> {
-  late Future<List<Movie>> upcomingMovies;
+class _PopularMovieSWidgettate extends State<PopularMoviesWidget> {
+  late Future<List<Movie>> popularMovies;
 
   @override
   void initState() {
     super.initState();
-    upcomingMovies = Api().getUpcomingMovies();
+    popularMovies = Api().getPopularMovies();
   }
 
   @override
@@ -37,7 +38,7 @@ class _UpcomingMovieState extends State<UpcomingMovies> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const UpcomingMoviesScreen(),
+                      builder: (context) => const PopularMoviesScreen(),
                     ),
                   );
                 },
@@ -45,7 +46,7 @@ class _UpcomingMovieState extends State<UpcomingMovies> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Upcoming Movies",
+                      "Popular Movies",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
@@ -71,7 +72,7 @@ class _UpcomingMovieState extends State<UpcomingMovies> {
           child: SizedBox(
             height: 150,
             child: FutureBuilder<List<Movie>>(
-              future: upcomingMovies,
+              future: popularMovies,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -81,12 +82,12 @@ class _UpcomingMovieState extends State<UpcomingMovies> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData) {
-                  final upcomingMoviesData = snapshot.data!;
+                  final popularMoviesData = snapshot.data!;
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: upcomingMoviesData.length,
+                    itemCount: popularMoviesData.length,
                     itemBuilder: (context, index) {
-                      final posterPath = upcomingMoviesData[index].posterPath;
+                      final posterPath = popularMoviesData[index].posterPath;
                       final imageUrl =
                           "https://image.tmdb.org/t/p/original/$posterPath";
                       return Padding(
@@ -97,7 +98,17 @@ class _UpcomingMovieState extends State<UpcomingMovies> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MovieDetailScreen(
+                                        dataMovies: popularMoviesData[index],
+                                        indexVideoMovie: 0,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Image.network(
                                   imageUrl,
                                   width: 105,

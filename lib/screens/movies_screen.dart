@@ -1,11 +1,11 @@
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
-import 'package:rabka_movie/widgets/movies/top_rated_movies.dart';
-import 'package:rabka_movie/widgets/movies/now_playing_movies_banner.dart';
-import 'package:rabka_movie/widgets/movies/popular_movies.dart';
+import 'package:rabka_movie/widgets/movies/top_rated_movies_widget.dart';
+import 'package:rabka_movie/widgets/movies/now_playing_movies_banner_widget.dart';
+import 'package:rabka_movie/widgets/movies/popular_movies_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rabka_movie/widgets/movies/upcoming_movies.dart';
+import 'package:rabka_movie/widgets/movies/upcoming_movies_widget.dart';
 
 class MoviesScreen extends StatefulWidget {
   const MoviesScreen({Key? key}) : super(key: key);
@@ -26,13 +26,13 @@ class _MoviesScreenState extends State<MoviesScreen> {
           child: const Column(
             children: [
               SizedBox(height: 10),
-              NowPlayingMoviesBanner(),
+              NowPlayingMoviesBannerWidget(),
               SizedBox(height: 20),
-              PopularMovies(),
+              PopularMoviesWidget(),
               SizedBox(height: 20),
-              TopRatedMovies(),
+              TopRatedMoviesWidget(),
               SizedBox(height: 20),
-              UpcomingMovies(),
+              UpcomingMoviesWidget(),
               SizedBox(height: 150),
             ],
           ),

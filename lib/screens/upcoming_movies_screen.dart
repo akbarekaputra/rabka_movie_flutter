@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/screens/movie_detail_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
 class UpcomingMoviesScreen extends StatefulWidget {
@@ -88,7 +89,18 @@ class _UpcomingMoviesScreenState extends State<UpcomingMoviesScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MovieDetailScreen(
+                                      dataMovies:
+                                          upcomingMoviesData[firstIndex],
+                                      indexVideoMovie: 0,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Stack(
                                 children: [
                                   ClipRRect(
@@ -143,7 +155,18 @@ class _UpcomingMoviesScreenState extends State<UpcomingMoviesScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MovieDetailScreen(
+                                      dataMovies:
+                                          upcomingMoviesData[secondIndex],
+                                      indexVideoMovie: 0,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Stack(
                                 children: [
                                   ClipRRect(

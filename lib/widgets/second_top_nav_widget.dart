@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
-class TopNav extends StatelessWidget implements PreferredSizeWidget {
-  final Movie dataMovies;
-  const TopNav({Key? key, required this.dataMovies}) : super(key: key);
+class SecondTopNavWidget extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+
+  const SecondTopNavWidget({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -30,10 +34,9 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ),
+      centerTitle: true,
       title: Text(
-        dataMovies.title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+        title,
         style: TextStyle(
           fontWeight: FontWeight.w500,
           color: _toggleValue ? bgPrimaryColor : primaryColor,

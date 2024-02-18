@@ -7,7 +7,7 @@ import 'package:rabka_movie/responsive/web_screen_layout.dart';
 import 'package:rabka_movie/screens/login_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:rabka_movie/utils/utils.dart';
-import 'package:rabka_movie/widgets/text_field_input.dart';
+import 'package:rabka_movie/widgets/text_field_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -152,7 +152,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 24,
               ),
-              TextFieldInput(
+              TextFieldInputWidget(
                 hintText: 'Enter your username',
                 textInputType: TextInputType.text,
                 textEditingController: _usernameController,
@@ -160,7 +160,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 24,
               ),
-              TextFieldInput(
+              TextFieldInputWidget(
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
@@ -168,7 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 24,
               ),
-              TextFieldInput(
+              TextFieldInputWidget(
                 hintText: 'Enter your password',
                 textInputType: TextInputType.text,
                 textEditingController: _passwordController,

@@ -8,14 +8,14 @@ import 'package:provider/provider.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
-class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+class CustomDrawerWidget extends StatefulWidget {
+  const CustomDrawerWidget({Key? key}) : super(key: key);
 
   @override
-  State<CustomDrawer> createState() => _CustomDrawerState();
+  State<CustomDrawerWidget> createState() => _CustomDrawerWidgetState();
 }
 
-class _CustomDrawerState extends State<CustomDrawer> {
+class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
   bool isLoading = false;
   var userData = {};
   String uid = "";

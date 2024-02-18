@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
-import 'package:rabka_movie/provider/idVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVidePlay_provider.dart';
 import 'package:rabka_movie/responsive/mobile_screen_layout.dart';
 import 'package:rabka_movie/responsive/responsive_layout.dart';
 import 'package:rabka_movie/responsive/web_screen_layout.dart';

@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
-class TopNav extends StatefulWidget implements PreferredSizeWidget {
+class TopNavWidget extends StatefulWidget implements PreferredSizeWidget {
   final AdvancedDrawerController advancedDrawerController;
 
-  const TopNav({
+  const TopNavWidget({
     Key? key,
     required this.advancedDrawerController,
   }) : super(key: key);
@@ -16,10 +16,10 @@ class TopNav extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  _TopNavState createState() => _TopNavState();
+  _TopNavWidgetState createState() => _TopNavWidgetState();
 }
 
-class _TopNavState extends State<TopNav> {
+class _TopNavWidgetState extends State<TopNavWidget> {
   @override
   void dispose() {
     super.dispose();

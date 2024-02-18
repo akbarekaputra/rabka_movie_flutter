@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rabka_movie/provider/idVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVidePlay_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
-class ThumbnailVideo extends StatefulWidget {
+class ThumbnailVideoWidget extends StatefulWidget {
   final String keyVideo;
 
-  const ThumbnailVideo({super.key, required this.keyVideo});
+  const ThumbnailVideoWidget({super.key, required this.keyVideo});
 
   @override
-  State<ThumbnailVideo> createState() => _ThumbnailVideoState();
+  State<ThumbnailVideoWidget> createState() => _ThumbnailVideoWidgetState();
 }
 
-class _ThumbnailVideoState extends State<ThumbnailVideo> {
+class _ThumbnailVideoWidgetState extends State<ThumbnailVideoWidget> {
   @override
   Widget build(BuildContext context) {
     final isVidPlayProvider = Provider.of<IsVidPlayProvider>(context);

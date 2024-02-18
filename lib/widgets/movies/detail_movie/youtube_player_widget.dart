@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rabka_movie/models/movie_model.dart';
-import 'package:rabka_movie/provider/idVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVidePlay_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -10,10 +10,10 @@ class YoutubePlayerWidget extends StatefulWidget {
   final int indexVideoMovie;
 
   const YoutubePlayerWidget({
-    Key? key,
+    super.key,
     required this.indexVideoMovie,
     required this.videoMovieData,
-  }) : super(key: key);
+  });
 
   @override
   State<YoutubePlayerWidget> createState() => _YoutubePlayerWidgetState();
@@ -66,16 +66,17 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
                   },
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
                   padding: const EdgeInsets.only(right: 8),
                   child: Text(
                     widget.videoMovieData[widget.indexVideoMovie].nameVideo,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: const TextStyle(
                       color: bgPrimaryColor,
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
                   ),
                 ),
               ],

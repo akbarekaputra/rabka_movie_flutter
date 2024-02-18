@@ -2,9 +2,9 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:rabka_movie/utils/global_variable.dart';
 import 'package:flutter/material.dart';
-import 'package:rabka_movie/widgets/bottom_nav.dart';
-import 'package:rabka_movie/widgets/custom_drawer.dart';
-import 'package:rabka_movie/widgets/top_nav.dart';
+import 'package:rabka_movie/widgets/bottom_nav_widget.dart';
+import 'package:rabka_movie/widgets/custom_drawer_widget.dart';
+import 'package:rabka_movie/widgets/top_nav_widget.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -66,16 +66,17 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       childDecoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      drawer: const CustomDrawer(),
+      drawer: const CustomDrawerWidget(),
       child: Scaffold(
-        appBar: TopNav(advancedDrawerController: _advancedDrawerController),
+        appBar:
+            TopNavWidget(advancedDrawerController: _advancedDrawerController),
         body: PageView(
           controller: pageController,
           onPageChanged: onPageChanged,
           children: homeScreenItems,
         ),
         extendBody: true,
-        bottomNavigationBar: BottomNav(
+        bottomNavigationBar: BottomNavWidget(
           currentPage: _page,
           navItems: navItems,
           onTap: navigationTapped,

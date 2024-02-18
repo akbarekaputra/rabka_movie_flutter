@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TextFieldInput extends StatefulWidget {
+class TextFieldInputWidget extends StatefulWidget {
   final TextEditingController textEditingController;
   final bool isPass;
   final String hintText;
   final TextInputType textInputType;
 
-  const TextFieldInput({
+  const TextFieldInputWidget({
     Key? key,
     required this.textEditingController,
     this.isPass = false,
@@ -15,10 +15,10 @@ class TextFieldInput extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<TextFieldInput> createState() => _TextFieldInputState();
+  State<TextFieldInputWidget> createState() => _TextFieldInputWidgetState();
 }
 
-class _TextFieldInputState extends State<TextFieldInput> {
+class _TextFieldInputWidgetState extends State<TextFieldInputWidget> {
   @override
   void dispose() {
     super.dispose();

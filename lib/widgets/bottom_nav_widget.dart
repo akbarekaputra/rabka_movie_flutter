@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:provider/provider.dart';
 
-class BottomNav extends StatelessWidget {
-  const BottomNav({
+class BottomNavWidget extends StatelessWidget {
+  const BottomNavWidget({
     super.key,
     required this.currentPage,
     required this.navItems,

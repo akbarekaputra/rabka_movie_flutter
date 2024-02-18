@@ -1,6 +1,6 @@
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
-import 'package:rabka_movie/widgets/home/continue_watching.dart';
+import 'package:rabka_movie/widgets/home/continue_watching_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Column(
             children: [
               SizedBox(height: 10),
-              ContinueWatching(),
+              ContinueWatchingWidget(),
               SizedBox(height: 150),
             ],
           ),

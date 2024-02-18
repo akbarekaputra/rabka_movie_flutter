@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:provider/provider.dart';
 
-class ContinueWatching extends StatelessWidget {
-  const ContinueWatching({Key? key}) : super(key: key);
+class ContinueWatchingWidget extends StatelessWidget {
+  const ContinueWatchingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

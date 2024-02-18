@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
-import 'package:rabka_movie/provider/idVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVidePlay_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:rabka_movie/utils/global_variable.dart';
-import 'package:rabka_movie/widgets/movies/detail_movie/thumnail_video.dart';
-import 'package:rabka_movie/widgets/movies/detail_movie/top_nav.dart';
+import 'package:rabka_movie/widgets/movies/detail_movie/thumnail_video_widget.dart';
+import 'package:rabka_movie/widgets/movies/detail_movie/top_nav_widget.dart';
 import 'package:rabka_movie/widgets/movies/detail_movie/youtube_player_widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,7 +69,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     bool _isVidPlay = isVidPlayProvider.isVidPlay;
 
     return Scaffold(
-      appBar: _isVidPlay ? null : TopNav(dataMovies: widget.dataMovies),
+      appBar: _isVidPlay ? null : TopNavWidget(dataMovies: widget.dataMovies),
       body: movieDetails != null
           ? SafeArea(
               child: SingleChildScrollView(
@@ -99,7 +99,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                     videoMovieData: videoMovieData,
                                     indexVideoMovie: widget.indexVideoMovie,
                                   )
-                                : ThumbnailVideo(
+                                : ThumbnailVideoWidget(
                                     keyVideo:
                                         videoMovieData[widget.indexVideoMovie]
                                             .key);
@@ -228,7 +228,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 TextSpan(
                                   text: isDescriptionClicked
                                       ? (movieDetails?['overview'])
-                                      : '${movieDetails?['overview'].substring(0, 120)}...',
+                                      : '${movieDetails?['overview'].substring(0, 80)}...',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
@@ -343,7 +343,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           onTap: () {
                                             setState(() {
                                               isVidPlayProvider
-                                                  .setIsVidPlay(_isVidPlay);
+                                                  .setIsVidPlay(true);
                                             });
                                             Navigator.push(
                                               context,
@@ -374,8 +374,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 onTap: () {
                                                   setState(() {
                                                     isVidPlayProvider
-                                                        .setIsVidPlay(
-                                                            _isVidPlay);
+                                                        .setIsVidPlay(true);
                                                   });
                                                   Navigator.push(
                                                     context,
