@@ -238,12 +238,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   ),
                                 ),
                                 if (!isDescriptionClicked)
-                                  const TextSpan(
+                                  TextSpan(
                                     text: ' more',
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black,
+                                      color: _toggleValue
+                                          ? bgPrimaryColor
+                                          : Colors.black,
                                     ),
                                   ),
                               ],
