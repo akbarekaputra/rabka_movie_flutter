@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:rabka_movie/api/api.dart';
 import 'package:rabka_movie/models/movie_model.dart';
 import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:rabka_movie/provider/isVidePlay_provider.dart';
+import 'package:rabka_movie/resources/like_methods.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:rabka_movie/utils/global_variable.dart';
 import 'package:rabka_movie/widgets/movies/detail_movie/thumnail_video_widget.dart';
@@ -34,11 +36,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool isDescriptionClicked = false;
   bool isVideoClicked = false;
 
+  int likeMovie = 0;
+
   @override
   void initState() {
     super.initState();
     videoMovie = Api().getVideoMovies(widget.dataMovies.id);
     fetchMovieDetails(widget.dataMovies.id);
+    initializeLikeMovie();
   }
 
   Future<void> fetchMovieDetails(int idMovie) async {
@@ -60,6 +65,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         print('Error fetching movie details: $e');
       }
     }
+  }
+
+  Future<void> initializeLikeMovie() async {
+    int fetchedLike = await LikeMethods().getLikeMovie(widget.dataMovies.id);
+    setState(() {
+      likeMovie = fetchedLike;
+    });
   }
 
   @override
@@ -213,51 +225,85 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                     Container(
-                        padding:
-                            const EdgeInsets.only(left: 20, top: 10, right: 20),
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isDescriptionClicked = !isDescriptionClicked;
-                            });
-                          },
-                          child: RichText(
-                            textAlign: TextAlign.justify,
-                            text: TextSpan(
-                              children: [
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 10, right: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isDescriptionClicked = !isDescriptionClicked;
+                          });
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.justify,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: isDescriptionClicked
+                                    ? (movieDetails?['overview'])
+                                    : '${movieDetails?['overview'].substring(0, 80)}...',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                  color: _toggleValue
+                                      ? bgPrimaryColor
+                                      : Colors.black,
+                                ),
+                              ),
+                              if (!isDescriptionClicked)
                                 TextSpan(
-                                  text: isDescriptionClicked
-                                      ? (movieDetails?['overview'])
-                                      : '${movieDetails?['overview'].substring(0, 80)}...',
+                                  text: ' more',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w500,
                                     color: _toggleValue
                                         ? bgPrimaryColor
                                         : Colors.black,
                                   ),
                                 ),
-                                if (!isDescriptionClicked)
-                                  TextSpan(
-                                    text: ' more',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: _toggleValue
-                                          ? bgPrimaryColor
-                                          : Colors.black,
-                                    ),
-                                  ),
-                              ],
-                            ),
+                            ],
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                     Container(
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () async {
+                                int updatedLikes =
+                                    await LikeMethods().updateLikeMovie(
+                                  widget.dataMovies.id,
+                                  likeMovie,
+                                );
+                                setState(() {
+                                  likeMovie = updatedLikes;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: _toggleValue
+                                      ? bgPrimaryColor
+                                      : secondaryColor.withOpacity(0.1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.thumb_up, size: 16),
+                                    const SizedBox(width: 5),
+                                    Text(likeMovie.toString()),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: Container(
                               padding: const EdgeInsets.all(10),
@@ -276,27 +322,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   Text(
                                     "Watchlist",
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: _toggleValue
-                                    ? bgPrimaryColor
-                                    : secondaryColor.withOpacity(0.1),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.share, size: 16),
-                                  SizedBox(width: 5),
-                                  Text("Share"),
                                 ],
                               ),
                             ),

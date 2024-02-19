@@ -41,10 +41,11 @@ class _SignupScreenState extends State<SignupScreen> {
     });
 
     String res = await AuthMethods().signUpUser(
-        email: _emailController.text,
-        password: _passwordController.text,
-        username: _usernameController.text,
-        file: _image!);
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      file: _image!,
+    );
 
     if (res == "success") {
       setState(() {
