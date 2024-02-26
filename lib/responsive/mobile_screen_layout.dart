@@ -1,7 +1,7 @@
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:rabka_movie/utils/colors.dart';
-import 'package:rabka_movie/utils/global_variable.dart';
 import 'package:flutter/material.dart';
+import 'package:rabka_movie/utils/global_variable.dart';
 import 'package:rabka_movie/widgets/bottom_nav_widget.dart';
 import 'package:rabka_movie/widgets/custom_drawer_widget.dart';
 import 'package:rabka_movie/widgets/top_nav_widget.dart';
@@ -14,21 +14,20 @@ class MobileScreenLayout extends StatefulWidget {
 }
 
 class _MobileScreenLayoutState extends State<MobileScreenLayout> {
-  late final _advancedDrawerController = AdvancedDrawerController();
-
-  late PageController pageController;
+  final _advancedDrawerController = AdvancedDrawerController();
+  late PageController _pageController;
   int _page = 0;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
+    _pageController = PageController(initialPage: _page);
   }
 
   @override
   void dispose() {
     super.dispose();
-    pageController.dispose();
+    _pageController.dispose();
     _advancedDrawerController.dispose();
   }
 
@@ -39,7 +38,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   }
 
   void navigationTapped(int page) {
-    pageController.jumpToPage(page);
+    _pageController.jumpToPage(page);
   }
 
   List<Map<String, dynamic>> navItems = [
@@ -71,7 +70,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         appBar:
             TopNavWidget(advancedDrawerController: _advancedDrawerController),
         body: PageView(
-          controller: pageController,
+          controller: _pageController,
           onPageChanged: onPageChanged,
           children: homeScreenItems,
         ),

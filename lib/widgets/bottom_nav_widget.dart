@@ -1,8 +1,8 @@
 import 'dart:ui';
-import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:rabka_movie/utils/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:rabka_movie/provider/dark_mode_toggle_provider.dart';
+import 'package:rabka_movie/utils/colors.dart';
 
 class BottomNavWidget extends StatelessWidget {
   const BottomNavWidget({
@@ -18,17 +18,17 @@ class BottomNavWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _toggleValue = Provider.of<DrawerToggleProvider>(context).toggleValue;
+    final toggleProvider = Provider.of<DarkModeToggleProvider>(context);
+    final bool toggleValue = toggleProvider.toggleValue;
 
-    Color _primaryColor = _toggleValue == true ? bgPrimaryColor : primaryColor;
-    Color _secondaryColor =
-        _toggleValue == true ? secondaryColor : secondaryColor;
+    final Color _primaryColor = toggleValue ? bgPrimaryColor : primaryColor;
+    final Color _secondaryColor = toggleValue ? secondaryColor : secondaryColor;
 
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
         child: BottomAppBar(
-          color: _toggleValue == true
+          color: toggleValue
               ? Colors.black87.withOpacity(0.5)
               : bgPrimaryColor.withOpacity(0.5),
           height: 68,

@@ -1,12 +1,12 @@
-import 'package:rabka_movie/screens/login_screen.dart';
-import 'package:rabka_movie/screens/my_account_screen.dart';
-import 'package:rabka_movie/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/provider/dark_mode_toggle_provider.dart';
+import 'package:rabka_movie/screens/user/login_screen.dart';
+import 'package:rabka_movie/screens/user/my_account_screen.dart';
 import 'package:rabka_movie/utils/colors.dart';
+import 'package:rabka_movie/utils/utils.dart';
 
 class CustomDrawerWidget extends StatefulWidget {
   const CustomDrawerWidget({Key? key}) : super(key: key);
@@ -23,10 +23,10 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
   @override
   void initState() {
     super.initState();
-    getData();
+    getDataUser();
   }
 
-  getData() async {
+  getDataUser() async {
     setState(() {
       isLoading = true;
     });
@@ -53,8 +53,8 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final toggleProvider = Provider.of<DrawerToggleProvider>(context);
-    bool _toggleValue = toggleProvider.toggleValue;
+    final toggleProvider = Provider.of<DarkModeToggleProvider>(context);
+    bool toggleValue = toggleProvider.toggleValue;
 
     return isLoading
         ? Container(
@@ -67,7 +67,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             child: Container(
               padding: const EdgeInsets.only(top: 20, left: 10),
               decoration: BoxDecoration(
-                color: _toggleValue == true ? Colors.black87 : Colors.white,
+                color: toggleValue ? Colors.black87 : Colors.white,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(20),
                 ),
@@ -99,7 +99,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
-                                    color: _toggleValue
+                                    color: toggleValue
                                         ? bgSecondaryColor
                                         : primaryColor,
                                   ),
@@ -140,7 +140,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: _toggleValue
+                                            color: toggleValue
                                                 ? bgSecondaryColor
                                                 : Colors.black,
                                           ),
@@ -152,7 +152,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                              color: _toggleValue
+                                              color: toggleValue
                                                   ? bgSecondaryColor
                                                   : Colors.black,
                                             ),
@@ -182,7 +182,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
-                                color: _toggleValue
+                                color: toggleValue
                                     ? bgSecondaryColor
                                     : Colors.black,
                               ),
@@ -190,7 +190,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                           ),
                           const Spacer(),
                           Switch(
-                            value: _toggleValue,
+                            value: toggleValue,
                             onChanged: (value) {
                               toggleProvider.setToggleValue(value);
                             },
@@ -201,7 +201,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                             inactiveTrackColor: primaryColor,
                             activeTrackColor: bgPrimaryColor,
                             inactiveThumbColor: bgPrimaryColor,
-                            thumbIcon: MaterialStatePropertyAll(_toggleValue
+                            thumbIcon: MaterialStatePropertyAll(toggleValue
                                 ? const Icon(Icons.dark_mode)
                                 : const Icon(
                                     Icons.light_mode,
@@ -212,173 +212,79 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    ListTile(
-                      onTap: () {},
-                      leading: const Icon(Icons.download),
-                      title: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Download",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                              Text(
-                                "Watch videos offline",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            color: secondaryColor,
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_right),
-                          )
-                        ],
-                      ),
+                    buildListTile(
+                      Icons.download,
+                      "Download",
+                      "Watch videos offline",
+                      toggleValue,
                     ),
-                    ListTile(
-                      onTap: () {},
-                      leading: const Icon(Icons.checklist),
-                      title: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Watchlist",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                              Text(
-                                "Watch videos offline",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            color: secondaryColor,
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_right),
-                          )
-                        ],
-                      ),
+                    buildListTile(
+                      Icons.checklist,
+                      "Watchlist",
+                      "Watch videos offline",
+                      toggleValue,
                     ),
-                    ListTile(
-                      onTap: () {},
-                      leading: const Icon(Icons.category),
-                      title: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Genres",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            color: secondaryColor,
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_right),
-                          )
-                        ],
-                      ),
+                    buildListTile(
+                      Icons.category,
+                      "Genres",
+                      "",
+                      toggleValue,
                     ),
-                    ListTile(
-                      onTap: () {},
-                      leading: const Icon(Icons.help),
-                      title: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Help",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            color: secondaryColor,
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_right),
-                          )
-                        ],
-                      ),
+                    buildListTile(
+                      Icons.help,
+                      "Help",
+                      "",
+                      toggleValue,
                     ),
-                    ListTile(
-                      onTap: () {},
-                      leading: const Icon(Icons.settings),
-                      title: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Settings",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: _toggleValue
-                                      ? bgSecondaryColor
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            color: secondaryColor,
-                            onPressed: () {},
-                            icon: const Icon(Icons.keyboard_arrow_right),
-                          )
-                        ],
-                      ),
+                    buildListTile(
+                      Icons.settings,
+                      "Settings",
+                      "",
+                      toggleValue,
                     ),
                   ],
                 ),
               ),
             ),
           );
+  }
+
+  ListTile buildListTile(
+      IconData icon, String title, String subtitle, bool toggleValue) {
+    return ListTile(
+      onTap: () {},
+      leading: Icon(icon),
+      title: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: toggleValue ? bgSecondaryColor : Colors.black,
+                ),
+              ),
+              if (subtitle != "")
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: toggleValue ? bgSecondaryColor : Colors.black,
+                  ),
+                )
+            ],
+          ),
+          const Spacer(),
+          IconButton(
+            color: secondaryColor,
+            onPressed: () {},
+            icon: const Icon(Icons.keyboard_arrow_right),
+          )
+        ],
+      ),
+    );
   }
 }

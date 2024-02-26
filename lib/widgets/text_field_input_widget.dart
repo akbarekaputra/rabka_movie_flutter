@@ -1,48 +1,41 @@
 import 'package:flutter/material.dart';
 
-class TextFieldInputWidget extends StatefulWidget {
+class TextFieldInputWidget extends StatelessWidget {
   final TextEditingController textEditingController;
-  final bool isPass;
+  final bool isPassword;
   final String hintText;
   final TextInputType textInputType;
 
   const TextFieldInputWidget({
-    Key? key,
+    super.key,
     required this.textEditingController,
-    this.isPass = false,
+    this.isPassword = false,
     required this.hintText,
     required this.textInputType,
-  }) : super(key: key);
-
-  @override
-  State<TextFieldInputWidget> createState() => _TextFieldInputWidgetState();
-}
-
-class _TextFieldInputWidgetState extends State<TextFieldInputWidget> {
-  @override
-  void dispose() {
-    super.dispose();
-    widget.textEditingController.dispose();
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
-    final inputBorder = OutlineInputBorder(
-      borderSide: Divider.createBorderSide(context),
+    final inputDecoration = InputDecoration(
+      hintText: hintText,
+      border: OutlineInputBorder(
+        borderSide: Divider.createBorderSide(context),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: Divider.createBorderSide(context),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: Divider.createBorderSide(context),
+      ),
+      filled: true,
+      contentPadding: const EdgeInsets.all(8),
     );
 
     return TextField(
-      controller: widget.textEditingController,
-      decoration: InputDecoration(
-        hintText: widget.hintText,
-        border: inputBorder,
-        focusedBorder: inputBorder,
-        enabledBorder: inputBorder,
-        filled: true,
-        contentPadding: const EdgeInsets.all(8),
-      ),
-      keyboardType: widget.textInputType,
-      obscureText: widget.isPass,
+      controller: textEditingController,
+      decoration: inputDecoration,
+      keyboardType: textInputType,
+      obscureText: isPassword,
     );
   }
 }

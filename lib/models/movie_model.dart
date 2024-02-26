@@ -33,35 +33,7 @@ class Movie {
       'rate': rate,
       'overview': overview,
       'backDropPath': backDropPath,
-      'posterPath': posterPath
-    };
-  }
-}
-
-class VideoMovies {
-  final String key;
-  final String nameVideo;
-  final String publishedAt;
-
-  VideoMovies({
-    required this.key,
-    required this.nameVideo,
-    required this.publishedAt,
-  });
-
-  factory VideoMovies.fromMap(Map<String, dynamic> map) {
-    return VideoMovies(
-      key: map['key'],
-      nameVideo: map['name'],
-      publishedAt: map['published_at'],
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'key': key,
-      'nameVideo': nameVideo,
-      'publishedAt': publishedAt,
+      'posterPath': posterPath,
     };
   }
 }

@@ -1,9 +1,10 @@
-import 'package:rabka_movie/utils/global_variable.dart';
 import 'package:flutter/material.dart';
+import 'package:rabka_movie/utils/global_variable.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget mobileScreenLayout;
   final Widget webScreenLayout;
+
   const ResponsiveLayout({
     Key? key,
     required this.mobileScreenLayout,
@@ -19,9 +20,10 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > webScreenSize) {
+        return widget.webScreenLayout;
+      } else {
         return widget.mobileScreenLayout;
       }
-      return widget.mobileScreenLayout;
     });
   }
 }

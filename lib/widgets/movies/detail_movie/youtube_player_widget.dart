@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rabka_movie/models/movie_model.dart';
-import 'package:rabka_movie/provider/isVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVideoPlay_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlayerWidget extends StatefulWidget {
-  final List<VideoMovies> videoMovieData;
+  Map<String, dynamic>? videoMovieData;
+
   final int indexVideoMovie;
 
-  const YoutubePlayerWidget({
+  YoutubePlayerWidget({
     super.key,
     required this.indexVideoMovie,
     required this.videoMovieData,
@@ -22,8 +23,8 @@ class YoutubePlayerWidget extends StatefulWidget {
 class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
   @override
   Widget build(BuildContext context) {
-    final isVidPlayProvider = Provider.of<IsVidPlayProvider>(context);
-    bool _isVidPlay = isVidPlayProvider.isVidPlay;
+    final isVideoPlayProvider = Provider.of<IsVideoPlayProvider>(context);
+    bool _isVidPlay = isVideoPlayProvider.isVideoPlay;
 
     return YoutubePlayerBuilder(
       onExitFullScreen: () {
@@ -31,7 +32,8 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
       },
       player: YoutubePlayer(
         controller: YoutubePlayerController(
-          initialVideoId: widget.videoMovieData[widget.indexVideoMovie].key,
+          initialVideoId: widget.videoMovieData?["results"]
+              [widget.indexVideoMovie]["key"],
           flags: const YoutubePlayerFlags(
             mute: false,
             autoPlay: true,
@@ -61,7 +63,7 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
                   ),
                   onPressed: () {
                     setState(() {
-                      isVidPlayProvider.setIsVidPlay(_isVidPlay);
+                      isVideoPlayProvider.setIsVideoPlay(_isVidPlay);
                     });
                   },
                 ),
@@ -69,7 +71,8 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   padding: const EdgeInsets.only(right: 8),
                   child: Text(
-                    widget.videoMovieData[widget.indexVideoMovie].nameVideo,
+                    widget.videoMovieData?["results"][widget.indexVideoMovie]
+                        ["name"],
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(

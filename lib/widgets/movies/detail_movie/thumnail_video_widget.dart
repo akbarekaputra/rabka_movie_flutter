@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rabka_movie/provider/isVidePlay_provider.dart';
+import 'package:rabka_movie/provider/isVideoPlay_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
 class ThumbnailVideoWidget extends StatefulWidget {
@@ -15,8 +15,8 @@ class ThumbnailVideoWidget extends StatefulWidget {
 class _ThumbnailVideoWidgetState extends State<ThumbnailVideoWidget> {
   @override
   Widget build(BuildContext context) {
-    final isVidPlayProvider = Provider.of<IsVidPlayProvider>(context);
-    bool _isVidPlay = isVidPlayProvider.isVidPlay;
+    final isVideoPlayProvider = Provider.of<IsVideoPlayProvider>(context);
+    bool _isVidPlay = isVideoPlayProvider.isVideoPlay;
 
     return Stack(
       children: [
@@ -32,7 +32,7 @@ class _ThumbnailVideoWidgetState extends State<ThumbnailVideoWidget> {
           child: InkWell(
             onTap: () {
               setState(() {
-                isVidPlayProvider.setIsVidPlay(_isVidPlay);
+                isVideoPlayProvider.setIsVideoPlay(_isVidPlay);
               });
             },
             child: Container(

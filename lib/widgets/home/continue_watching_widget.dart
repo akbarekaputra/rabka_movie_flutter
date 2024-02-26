@@ -1,14 +1,15 @@
-import 'package:rabka_movie/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:rabka_movie/provider/dark_mode_toggle_provider.dart';
+import 'package:rabka_movie/utils/colors.dart';
 
 class ContinueWatchingWidget extends StatelessWidget {
   const ContinueWatchingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool _toggleValue = Provider.of<DrawerToggleProvider>(context).toggleValue;
+    bool _darkModeToggleValue =
+        Provider.of<DarkModeToggleProvider>(context).toggleValue;
 
     return SizedBox(
       height: 170,
@@ -16,7 +17,7 @@ class ContinueWatchingWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -26,12 +27,12 @@ class ContinueWatchingWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
                     color:
-                        _toggleValue == true ? bgPrimaryColor : Colors.black87,
+                        _darkModeToggleValue ? bgPrimaryColor : Colors.black87,
                   ),
                 ),
                 Icon(
                   Icons.navigate_next,
-                  color: _toggleValue == true ? bgPrimaryColor : primaryColor,
+                  color: _darkModeToggleValue ? bgPrimaryColor : primaryColor,
                 ),
               ],
             ),

@@ -13,14 +13,14 @@ class User {
     required this.photoUrl,
   });
 
-  static User fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
+  factory User.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
 
     return User(
-      uid: snapshot["uid"],
-      username: snapshot["username"],
-      email: snapshot["email"],
-      photoUrl: snapshot["photoUrl"],
+      uid: data['uid'] ?? '',
+      username: data['username'] ?? '',
+      email: data['email'] ?? '',
+      photoUrl: data['photoUrl'] ?? '',
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rabka_movie/models/movie_model.dart';
-import 'package:rabka_movie/provider/drawer_toggle_provider.dart';
+import 'package:rabka_movie/provider/dark_mode_toggle_provider.dart';
 import 'package:rabka_movie/utils/colors.dart';
 
 class TopNavWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -13,17 +13,18 @@ class TopNavWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _toggleValue = Provider.of<DrawerToggleProvider>(context).toggleValue;
+    bool _darkModeToggleValue =
+        Provider.of<DarkModeToggleProvider>(context).toggleValue;
 
     return AppBar(
-      backgroundColor: _toggleValue ? Colors.black87 : bgPrimaryColor,
+      backgroundColor: _darkModeToggleValue ? Colors.black87 : bgPrimaryColor,
       leading: Padding(
         padding: const EdgeInsets.only(left: 15),
         child: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             size: 24,
-            color: _toggleValue ? bgPrimaryColor : primaryColor,
+            color: _darkModeToggleValue ? bgPrimaryColor : primaryColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -36,7 +37,7 @@ class TopNavWidget extends StatelessWidget implements PreferredSizeWidget {
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
           fontWeight: FontWeight.w500,
-          color: _toggleValue ? bgPrimaryColor : primaryColor,
+          color: _darkModeToggleValue ? bgPrimaryColor : primaryColor,
         ),
       ),
       actions: <Widget>[
@@ -44,7 +45,7 @@ class TopNavWidget extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 15),
           child: IconButton(
             icon: const Icon(Icons.search, size: 25),
-            color: _toggleValue ? bgPrimaryColor : primaryColor,
+            color: _darkModeToggleValue ? bgPrimaryColor : primaryColor,
             onPressed: () {},
           ),
         ),
