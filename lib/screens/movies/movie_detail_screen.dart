@@ -45,7 +45,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         _fetchMovieDetails(widget.dataMovies.id),
       ]);
     } catch (e) {
-      // Handle errors (e.g., show an error message to the user)
       print("Error fetching data: $e");
     }
   }
@@ -62,7 +61,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       });
       _initializeLikeMovie();
     } else {
-      // Handle error (e.g., show an error message to the user)
       print('Failed to load movie videos. Status code: ${response.statusCode}');
     }
   }
@@ -78,7 +76,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         _movieDetails = json.decode(response.body);
       });
     } else {
-      // Handle error (e.g., show an error message to the user)
       print(
           'Failed to load movie details. Status code: ${response.statusCode}');
     }
@@ -127,93 +124,135 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       height: 100,
                       width: double.infinity,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: Image.network(
-                              "https://image.tmdb.org/t/p/original/${widget.dataMovies.posterPath}",
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
+                          Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/original/${widget.dataMovies.posterPath}",
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                height: 100,
+                                alignment: Alignment.topLeft,
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.dataMovies.title,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _darkModeToggleValue
+                                            ? bgPrimaryColor
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 3,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          if (_movieDetails?["genres"] !=
+                                                  null &&
+                                              _movieDetails?["genres"].length >
+                                                  0)
+                                            Text(
+                                              _movieDetails?["genres"][0]
+                                                  ["name"],
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: secondaryColor,
+                                              ),
+                                            ),
+                                          if (_movieDetails?["genres"] !=
+                                                  null &&
+                                              _movieDetails?["genres"].length >
+                                                  1)
+                                            const Text(
+                                              "  •  ",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: secondaryColor,
+                                              ),
+                                            ),
+                                          if (_movieDetails?["genres"] !=
+                                                  null &&
+                                              _movieDetails?["genres"].length >
+                                                  1)
+                                            Text(
+                                              _movieDetails?["genres"][1]
+                                                  ["name"],
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: secondaryColor,
+                                              ),
+                                            ),
+                                          if (_movieDetails?["genres"] !=
+                                                  null &&
+                                              _movieDetails?["genres"].length >
+                                                  2)
+                                            const Text(
+                                              "  •  ",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: secondaryColor,
+                                              ),
+                                            ),
+                                          if (_movieDetails?["genres"] !=
+                                                  null &&
+                                              _movieDetails?["genres"].length >
+                                                  2)
+                                            Text(
+                                              _movieDetails?["genres"][2]
+                                                  ["name"],
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: secondaryColor,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      _movieDetails?["release_date"],
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: secondaryColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                           Container(
                             height: 100,
-                            alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.only(left: 10),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(left: 10, right: 20),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                const Icon(Icons.star),
                                 Text(
-                                  widget.dataMovies.title,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: _darkModeToggleValue
-                                        ? bgPrimaryColor
-                                        : Colors.black,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 3,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      if (_movieDetails?["genres"] != null &&
-                                          _movieDetails?["genres"].length > 0)
-                                        Text(
-                                          _movieDetails?["genres"][0]["name"],
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: secondaryColor,
-                                          ),
-                                        ),
-                                      if (_movieDetails?["genres"] != null &&
-                                          _movieDetails?["genres"].length > 1)
-                                        const Text(
-                                          "  •  ",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: secondaryColor,
-                                          ),
-                                        ),
-                                      if (_movieDetails?["genres"] != null &&
-                                          _movieDetails?["genres"].length > 1)
-                                        Text(
-                                          _movieDetails?["genres"][1]["name"],
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: secondaryColor,
-                                          ),
-                                        ),
-                                      if (_movieDetails?["genres"] != null &&
-                                          _movieDetails?["genres"].length > 2)
-                                        const Text(
-                                          "  •  ",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: secondaryColor,
-                                          ),
-                                        ),
-                                      if (_movieDetails?["genres"] != null &&
-                                          _movieDetails?["genres"].length > 2)
-                                        Text(
-                                          _movieDetails?["genres"][2]["name"],
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: secondaryColor,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                                Text(
-                                  _movieDetails?["release_date"],
+                                  (_movieDetails?["vote_average"] is double
+                                      ? (_movieDetails?["vote_average"])
+                                          .toStringAsFixed(2)
+                                      : (_movieDetails?["vote_average"]
+                                              .toString()) ??
+                                          ""),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -222,7 +261,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 ),
                               ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
