@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -7,11 +10,37 @@ import 'package:rabka_movie/responsive/mobile_screen_layout.dart';
 import 'package:rabka_movie/responsive/responsive_layout.dart';
 import 'package:rabka_movie/responsive/web_screen_layout.dart';
 import 'package:rabka_movie/utils/colors.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:rabka_movie/utils/global_variable.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
+  // initialise app based on platform- web or mobile
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: apiKeyWeb,
+        appId: appId,
+        messagingSenderId: messagingSenderId,
+        projectId: projectId,
+        storageBucket: storageBucket,
+      ),
+    );
+  } else if (Platform.isAndroid) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: apiKeyAndroid,
+        appId: appId,
+        messagingSenderId: messagingSenderId,
+        projectId: projectId,
+        storageBucket: storageBucket,
+      ),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(const MyApp());
 }
 

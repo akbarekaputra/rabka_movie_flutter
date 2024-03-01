@@ -5,7 +5,7 @@ import 'package:rabka_movie/utils/global_variable.dart';
 
 class Api {
   static const String _baseUrl = "https://api.themoviedb.org";
-  static const String _apiKeyParam = "api_key=$apiKey";
+  static String _apiKeyParam = "api_key=$apiKey";
 
   Future<List<Movie>> _fetchMovies(String apiUrl) async {
     final response = await http.get(Uri.parse(apiUrl));
@@ -20,22 +20,22 @@ class Api {
   }
 
   Future<List<Movie>> getNowPlayingMovies() async {
-    const apiUrl = "$_baseUrl/3/movie/now_playing?$_apiKeyParam";
+    String apiUrl = "$_baseUrl/3/movie/now_playing?$_apiKeyParam";
     return _fetchMovies(apiUrl);
   }
 
   Future<List<Movie>> getPopularMovies() async {
-    const apiUrl = "$_baseUrl/3/movie/popular?$_apiKeyParam";
+    String apiUrl = "$_baseUrl/3/movie/popular?$_apiKeyParam";
     return _fetchMovies(apiUrl);
   }
 
   Future<List<Movie>> getTopRatedMovies() async {
-    const apiUrl = "$_baseUrl/3/movie/top_rated?$_apiKeyParam";
+    String apiUrl = "$_baseUrl/3/movie/top_rated?$_apiKeyParam";
     return _fetchMovies(apiUrl);
   }
 
   Future<List<Movie>> getUpcomingMovies() async {
-    const apiUrl = "$_baseUrl/3/movie/upcoming?$_apiKeyParam";
+    String apiUrl = "$_baseUrl/3/movie/upcoming?$_apiKeyParam";
     return _fetchMovies(apiUrl);
   }
 
