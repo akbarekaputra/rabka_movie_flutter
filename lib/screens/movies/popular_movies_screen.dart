@@ -121,7 +121,7 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
                   (movie.rate.toInt() / 2).round(),
                   (index) => const Icon(
                     Icons.star_rate,
-                    color: primaryColor,
+                    color: Colors.white,
                     size: 12,
                   ),
                 ),

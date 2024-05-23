@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
 
   ThemeData _buildThemeData(DarkModeToggleProvider toggleProvider) {
     return ThemeData(
-      fontFamily: 'Poppins',
+      // fontFamily: 'Poppins',
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
