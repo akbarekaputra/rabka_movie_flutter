@@ -58,18 +58,25 @@ This is a Flutter application that displays a list of movies fetched from The Mo
 
 4. Configure Firebase in your Flutter app:
 
-   - Ensure the `firebase_core`, `firebase_auth`, `cloud_firestore`, and `google_sign_in` dependencies are added to your `pubspec.yaml` file:
+   - Ensure the dependencies are added to your `pubspec.yaml` file:
 
    ```yaml
    dependencies:
-     flutter:
-       sdk: flutter
-     firebase_core: latest_version
-     firebase_auth: latest_version
      cloud_firestore: latest_version
-     google_sign_in: latest_version
-     provider: latest_version
-     http: latest_version
+    cupertino_icons: latest_version
+    firebase_auth: latest_version
+    firebase_core: latest_version
+    firebase_database: latest_version
+    firebase_storage: latest_version
+    flutter:
+      sdk: flutter
+    flutter_advanced_drawer: latest_version
+    flutter_dotenv: latest_version
+    http: latest_version
+    image_picker: latest_version
+    provider: latest_version
+    uuid: latest_version
+    youtube_player_flutter: latest_version
    ```
 
 5. Set up TMDB API:
@@ -99,7 +106,7 @@ This app uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data. M
 
 This app uses Firebase for user authentication and Firestore for saving user-specific data such as liked movies. Make sure to set up Firebase correctly by following the installation steps above.
 
-## Contributing
+## Contribute
 
 If you would like to contribute to this project, please fork the repository and create a pull request with your changes.
 
